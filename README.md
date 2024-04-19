@@ -53,10 +53,30 @@ The hook `useMatomo()` is now available on all your subcomponents.
 
 ## 🔧 Options
 
-| Option | Required? | Description | Example |
-| --------- | --------- | ------- | ------ |
-| `trackerBaseUrl` | ✅ | The **base URL** of your matomo installation. This must not include `matomo.php` or `matomo.js` | `https://tracking.mywebsite.eu` |
-| `siteId` |  ✅ | The site identifier. This can be retrieved from your matomo dashboard. |
+| Option | Type | Required? | Description | Example |
+| --- | --- | --- | --- | --- |
+| `trackerBaseUrl` | String | ✅ | The **base URL** of your matomo installation. This must not include `matomo.php` or `matomo.js` | `https://track.me.eu` |
+| `siteId` |  String or Number | ✅ | The site identifier. This can be retrieved from your matomo dashboard. | `1` |
+| `disableTracking` | Boolean | - | When set to `true`, tracking will be stopped. Useful for GDPR🇪🇺 compliance or development websites | `false` |
+| `urlTransformer` | Function (see below) | - | Transform function that will modify the URL and set it as a custom URL. Usefull to remove sensitive informations (ids...) from URLs | See below |
+
+### Transform URLs using `urlTransformer`
+
+There is an option to modify URLs before sending them to the matomo instance. This is particularly useful to remove sensitive informations such as IDs from the URLs. This method accepts one parameter (string) and must return a string. 
+
+#### Example use case - removing UUIDs from the URL: 
+```typescript
+const urlTransformer: (url: string) => {
+	const UUIDV4_REGEX = new RegExp(/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/, "g");
+	return url.replaceAll(UUIDV4_REGEX, "**MASKED**");
+};
+
+const config: MatomoProviderConfig = {
+	trackerBaseUrl: "https://base.url.of.your.tracker",
+	siteId: 1,
+	urlTransformer
+};
+```
 
 ## 💖 What is keiko?
 
