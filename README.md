@@ -1,4 +1,4 @@
-<h1 align="center" id="title">@keiko/app-react-matomo</h1>
+<h1 align="center" id="title">@keiko-app/react-matomo</h1>
 ---
 
 <p align="center"><img src="https://socialify.git.ci/keiko-app/react-matomo/image?description=1&amp;font=Source%20Code%20Pro&amp;forks=1&amp;issues=1&amp;language=1&amp;name=1&amp;owner=1&amp;pulls=1&amp;stargazers=1&amp;theme=Auto" alt="project-image" with="75%"></p>
@@ -46,9 +46,56 @@ const App = () => {
 export { App };
 ```
 
-The hook `useMatomo()` is now available on all your subcomponents. 
+## 📝 Usage
 
+Every child component of the MatomoProvider has access to the `useMatomo()` hook. This hook exports the tracker instance.
 
+```typescript
+const { tracker } = useMatomo();
+```
+
+Then, you will have access to the tracking methods. 
+
+### Tracking Page View 
+
+**Method:** `tracker.trackPageView(parameters?: TrackPageViewParams)` 
+
+Some parameters can be provided (none of them are required): 
+
+| Option | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| `documentTitle` | String | Sets the page title | Value of `window.document.title`
+| `href` | String / [Location](https://developer.mozilla.org/docs/Web/API/Location) | Sets the page URL | Value of `window.location.href` |
+| `customDimensions` | Boolean / Array of Custom Dimensions | Sets some custom dimensions | *none* |
+
+### Tracking Custom Events 
+
+**Method:** `tracker.trackEvent(parameters: TrackEventParams)`
+
+With the following parameters: 
+
+| Option | Type | Required? | Description | Default Value |
+| --- | --- | --- | --- | --- |
+| `category` | String | ✅ | The event's category | *none, must be set* 
+| `action` | String | ✅ | The event's action | *none, must be set* 
+| `name` | String | - | ... | *none* 
+| `value` | String | - | ... | *none* 
+| `documentTitle` | String | - | Sets the page title | Value of `window.document.title`
+| `href` | String / [Location](https://developer.mozilla.org/docs/Web/API/Location) | - | Sets the page URL | Value of `window.location.href` |
+| `customDimensions` | Boolean / Array of Custom Dimensions | - | Sets some custom dimensions | *none* |
+
+### Other Specifications
+
+#### Custom Dimensions
+
+When tracking a Page View or an Event, you can specify any kind of Custom Dimension. A Custom Dimension is an `Object` with a numeric `id` and a string `value`: 
+
+```typescript
+interface CustomDimension {
+  id: number;
+  value: string;
+}
+```
 
 
 ## 🔧 Options
@@ -79,6 +126,10 @@ const config: MatomoProviderConfig = {
 ```
 
 ## 💖 What is keiko?
+
+**keiko** is an online service available on the Web and as mobile applications to simply manage home inventories and better deal with home insurers. It was proudly built in 🇫🇷 France and is currently only avaialble in this country. 
+
+➡️ **Discover more about keiko on our website: [https://keiko-app.fr](https://keiko-app.fr)**
 
 ## 📚 History
 
