@@ -1,0 +1,31 @@
+{
+  "name": "@keiko-app/react-matomo",
+  "version": "0.0.1",
+  "private": true,
+  "description": "React integration for Matomo analytics system",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keiko-app/react-matomo.git"
+  },
+  "keywords": [
+    "matomo",
+    "react",
+    "analytics"
+  ],
+  "bugs": {
+    "url": "https://github.com/keiko-app/react-matomo/issues"
+  },
+  "homepage": "https://github.com/keiko-app/react-matomo#readme",
+  "author": "Nicolas Nunge <nicolas.nunge@keiko-app.fr>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^18.2.79",
+    "react": "^18.2.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  }
+}
