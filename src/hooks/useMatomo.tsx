@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactNode, createContext, useContext } from "react";
+import React, { ReactNode, createContext, useContext, useMemo } from "react";
 import { MatomoTracker } from "../lib/MatomoTracker";
 import { MatomoProviderConfig } from "../types";
 
@@ -20,7 +19,7 @@ export const MatomoProvider = ({
   children: ReactNode;
   config: MatomoProviderConfig;
 }) => {
-  const tracker = new MatomoTracker(config);
+  const tracker = useMemo(() => new MatomoTracker(config), [config]);
   return (
     <MatomoContext.Provider value={{ tracker }}>
       {children}
