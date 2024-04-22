@@ -1,12 +1,12 @@
 import { TrackType } from "../enums";
 import {
+  MatomoProviderConfig,
   CustomDimension,
+  TrackParams,
   TrackEventParams,
   TrackPageViewParams,
-  TrackParams,
   TrackSiteSearchParams,
 } from "../types";
-import { MatomoProviderConfig } from "../types";
 
 declare global {
   interface Window {
@@ -104,7 +104,7 @@ export class MatomoTracker {
     }
   }
 
-  addCustomInstruction(name: string, ...args: any[]): MatomoTracker {
+  addCustomInstruction(name: string, ...args: any[]): this {
     if (typeof window !== "undefined") {
       window._paq.push([name, ...args]);
     }
@@ -156,9 +156,7 @@ export class MatomoTracker {
     scriptElement.defer = true;
     scriptElement.src = `${this.options.trackerBaseUrl}/matomo.js`;
 
-    if (scripts && scripts.parentNode) {
-      scripts.parentNode.insertBefore(scriptElement, scripts);
-    }
+    scripts?.parentNode?.insertBefore(scriptElement, scripts);
   }
 
   private getPageUrl(): string {
