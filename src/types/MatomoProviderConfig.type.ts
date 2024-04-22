@@ -4,4 +4,5 @@ export type MatomoProviderConfig = {
   disableTracking?: boolean;
   urlTransformer?: (url: string) => string;
   heartbeat?: boolean | number;
+  disableLinkTracking?: boolean;
 };

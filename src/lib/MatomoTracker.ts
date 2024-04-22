@@ -59,6 +59,8 @@ export class MatomoTracker {
       this.enableHeartBeatTimer(heartbeatInterval);
     }
 
+    this.enableLinkTracking(!this.options.disableLinkTracking);
+
     this.addTrackerToDOM();
   }
 
@@ -90,6 +92,10 @@ export class MatomoTracker {
       window._paq.push([name, ...args]);
     }
     return this;
+  }
+
+  private enableLinkTracking(active: boolean): void {
+    this.addCustomInstruction("enableLinkTracking", active);
   }
 
   private enableHeartBeatTimer(interval: number): void {
