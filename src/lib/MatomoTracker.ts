@@ -4,6 +4,7 @@ import {
   TrackEventParams,
   TrackPageViewParams,
   TrackParams,
+  TrackSiteSearchParams,
 } from "../types";
 import { MatomoProviderConfig } from "../types";
 
@@ -84,6 +85,22 @@ export class MatomoTracker {
       throw new Error(
         "You must specify an action and a category for the event."
       );
+    }
+  }
+
+  trackSiteSearch({
+    keyword,
+    category,
+    count,
+    ...otherParams
+  }: TrackSiteSearchParams) {
+    if (keyword) {
+      this.track({
+        data: [TrackType.SEARCH, keyword, category, count],
+        ...otherParams,
+      });
+    } else {
+      throw new Error("You must specify a keyword for the site search.");
     }
   }
 
