@@ -106,6 +106,7 @@ interface CustomDimension {
 | `siteId` |  String or Number | ✅ | The site identifier. This can be retrieved from your matomo dashboard. | `1` |
 | `disableTracking` | Boolean | - | When set to `true`, tracking will be stopped. Useful for GDPR🇪🇺 compliance or development websites | `false` |
 | `urlTransformer` | Function (see below) | - | Transform function that will modify the URL and set it as a custom URL. Usefull to remove sensitive informations (ids...) from URLs | See below |
+| `heartbeat` | Number or Boolean | - | When set to `false`, the heartbeat is disabled. When set to `true` (default value), a 15-second heartbeat will be used. When set to any positive integer, the value will be used as the heartbeat interval. | `false`, `15` |
 
 ### Transform URLs using `urlTransformer`
 

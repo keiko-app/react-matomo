@@ -50,6 +50,15 @@ export class MatomoTracker {
     );
     this.addCustomInstruction("setSiteId", this.options.siteId);
 
+    if (this.options.heartbeat === undefined || this.options.heartbeat) {
+      const heartbeatInterval =
+        typeof this.options.heartbeat === "number" &&
+        Math.round(this.options.heartbeat) > 0
+          ? Math.round(this.options.heartbeat)
+          : 15;
+      this.enableHeartBeatTimer(heartbeatInterval);
+    }
+
     this.addTrackerToDOM();
   }
 
@@ -81,6 +90,10 @@ export class MatomoTracker {
       window._paq.push([name, ...args]);
     }
     return this;
+  }
+
+  private enableHeartBeatTimer(interval: number): void {
+    this.addCustomInstruction("enableHeartBeatTimer", interval);
   }
 
   private track({
