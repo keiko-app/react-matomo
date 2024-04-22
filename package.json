@@ -1,6 +1,6 @@
 {
   "name": "@keiko-app/react-matomo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "description": "React integration for Matomo analytics system",
   "main": "dist/index.js",
