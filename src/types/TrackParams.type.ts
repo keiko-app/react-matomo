@@ -15,6 +15,12 @@ export interface TrackEventParams extends TrackPageViewParams {
   value?: number;
 }
 
+export interface TrackSiteSearchParams extends TrackPageViewParams {
+  keyword: string;
+  category?: string | false;
+  count?: number | false;
+}
+
 export interface CustomDimension {
   id: number;
   value: string;

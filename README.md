@@ -84,6 +84,21 @@ With the following parameters:
 | `href` | String / [Location](https://developer.mozilla.org/docs/Web/API/Location) | - | Sets the page URL | Value of `window.location.href` |
 | `customDimensions` | Boolean / Array of Custom Dimensions | - | Sets some custom dimensions | *none* |
 
+### Tracking Searches 
+
+**Method:** `tracker.trackSiteSearch(parameters: TrackSiteSearchParams)`
+
+With the following parameters: 
+
+| Option | Type | Required? | Description | Default Value |
+| --- | --- | --- | --- | --- |
+| `keyword` | String | ✅ | The searched keyword | *none, must be set* 
+| `category` | String or `false` | - | The category used by the search engine. If not applicable (or unknown), set to `false` | `false`
+| `count` | Number or `false` | - | The number of results returned by the search. If not applicable (or unknown), set to `false` | `false`
+| `documentTitle` | String | - | Sets the page title | Value of `window.document.title`
+| `href` | String / [Location](https://developer.mozilla.org/docs/Web/API/Location) | - | Sets the page URL | Value of `window.location.href` |
+| `customDimensions` | Boolean / Array of Custom Dimensions | - | Sets some custom dimensions | *none* |
+
 ### Other Specifications
 
 #### Custom Dimensions
@@ -106,6 +121,9 @@ interface CustomDimension {
 | `siteId` |  String or Number | ✅ | The site identifier. This can be retrieved from your matomo dashboard. | `1` |
 | `disableTracking` | Boolean | - | When set to `true`, tracking will be stopped. Useful for GDPR🇪🇺 compliance or development websites | `false` |
 | `urlTransformer` | Function (see below) | - | Transform function that will modify the URL and set it as a custom URL. Usefull to remove sensitive informations (ids...) from URLs | See below |
+| `heartbeat` | Number or Boolean | - | When set to `false`, the heartbeat is disabled. When set to `true` (default value), a 15-second heartbeat will be used. When set to any positive integer, the value will be used as the heartbeat interval. | `false`, `15` |
+| `disableLinkTracking` | Boolean | - | Disable tracking of outbound and download links. Defaults to `false`. | `true` |
+
 
 ### Transform URLs using `urlTransformer`
 

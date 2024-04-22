@@ -4,6 +4,7 @@ import {
   TrackEventParams,
   TrackPageViewParams,
   TrackParams,
+  TrackSiteSearchParams,
 } from "../types";
 import { MatomoProviderConfig } from "../types";
 
@@ -50,6 +51,17 @@ export class MatomoTracker {
     );
     this.addCustomInstruction("setSiteId", this.options.siteId);
 
+    if (this.options.heartbeat === undefined || this.options.heartbeat) {
+      const heartbeatInterval =
+        typeof this.options.heartbeat === "number" &&
+        Math.round(this.options.heartbeat) > 0
+          ? Math.round(this.options.heartbeat)
+          : 15;
+      this.enableHeartBeatTimer(heartbeatInterval);
+    }
+
+    this.enableLinkTracking(!this.options.disableLinkTracking);
+
     this.addTrackerToDOM();
   }
 
@@ -76,11 +88,35 @@ export class MatomoTracker {
     }
   }
 
+  trackSiteSearch({
+    keyword,
+    category,
+    count,
+    ...otherParams
+  }: TrackSiteSearchParams) {
+    if (keyword) {
+      this.track({
+        data: [TrackType.SEARCH, keyword, category, count],
+        ...otherParams,
+      });
+    } else {
+      throw new Error("You must specify a keyword for the site search.");
+    }
+  }
+
   addCustomInstruction(name: string, ...args: any[]): MatomoTracker {
     if (typeof window !== "undefined") {
       window._paq.push([name, ...args]);
     }
     return this;
+  }
+
+  private enableLinkTracking(active: boolean): void {
+    this.addCustomInstruction("enableLinkTracking", active);
+  }
+
+  private enableHeartBeatTimer(interval: number): void {
+    this.addCustomInstruction("enableHeartBeatTimer", interval);
   }
 
   private track({
